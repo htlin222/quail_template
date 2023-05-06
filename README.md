@@ -49,8 +49,8 @@
 	```
 	formatting the <text> in html as the same format like  example, include <p> <br />
 	export in a code box, no explanation
-	here is an example
-	\`\`\`
+	here is an example:
+	'''
 	<p>Question $Number:<br />
 	<p>content<br />
 	<br />
@@ -59,7 +59,7 @@
 	<p><strong>C. 。</strong></p>
 	<p><strong>D. 。</strong></p>
 	<p><strong>E. 。</strong></p>
-	\`\`\`
+	'''
 	now, the text is:
 	<題目>
 
@@ -67,9 +67,9 @@
 ### 詳解的部分: 
 ```
 formating in easily reading html 
-\`\`\`
+'''
 內容
-\`\`\`
+'''
 ```
 
 ## 題目標籤
@@ -82,7 +82,7 @@ formating in easily reading html
 create a json file looks like, complete the list from "001"~"160" with consecutive numbers, 
 e.g. 001~019 will be 心臟科, all the same 
 
-\`\`\`
+'''
 {
     "001": {"0":"General","1":"心臟科"}, 
     ...
@@ -112,7 +112,7 @@ e.g. 001~019 will be 心臟科, all the same
     ....
     "160": {"0":"General","1":"其他科"},
 }
-\`\`\`
+'''
 ```
 
 - 將產生好的結果貼到`index.json`裡

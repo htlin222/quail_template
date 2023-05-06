@@ -37,13 +37,11 @@
 	<p>D. Magpie</p>
 	```
 
-- 可以用chrome/safari/edge打開這個html檔，預覽一下編輯效果
-- 或在vscode裡安裝`HTML Preview` 這個外掛
+- 在vscode裡安裝[HTML Preview](https://marketplace.visualstudio.com/items?itemName=george-alisson.html-preview-vscode) 這樣可以即時預覽編輯效果
 ![HTML preview](https://i.imgur.com/K44uGYK.png)
-- 可以即時預覽
 ![demo](https://i.imgur.com/fARqflr.png)
 
-## 窩不會用html...
+## 如果說，窩不會用html...
 
 - 可以用ChatGPT幫你:
 	```

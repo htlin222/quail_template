@@ -27,20 +27,93 @@
 	- 即html語法：`<img src="圖片地址">`，'./'表示目前的資料夾
 - 這個圖片要放在同一個資料夾裡，並取好名字
 - 在問題檔案中，如果答案選項具有以下特徵，Quail 將自動被辨識：
-	1. 由單個大寫字母（A、B、C 等）組成，
-	2. 接在`<br />`後面，以及 
+	1. 由單個大寫字母（A、B、C 等）組成
+	2. 在這行的第一個字
 	3. 後面接著 ')' 或 '.' 例如
 	```
-	A. Quail
-	B. Cockatoo
-	C. Parakeet
-	D. Magpie
+	<p>A. Quail</p>
+	<p>B. Cockatoo</p>
+	<p>C. Parakeet</p>
+	<p>D. Magpie</p>
 	```
 
 - 可以用chrome/safari/edge打開這個html檔，預覽一下編輯效果
+- 或在vscode裡安裝`HTML Preview` 這個外掛
+![HTML preview](https://i.imgur.com/K44uGYK.png)
+- 可以即時預覽
+![demo](https://i.imgur.com/fARqflr.png)
+
+## 窩不會用html...
+
+- 可以用ChatGPT幫你:
+	```
+	formatting the <text> in html as the same format like  example, include <p> <br />
+	export in a code box, no explanation
+	here is an example
+	\`\`\`
+	<p>Question $Number:<br />
+	<p>content<br />
+	<br />
+	<p><strong>A. 。</strong></p>
+	<p><strong>B. 。</strong></p>
+	<p><strong>C. 。</strong></p>
+	<p><strong>D. 。</strong></p>
+	<p><strong>E. 。</strong></p>
+	\`\`\`
+	now, the text is:
+	<題目>
+
+	```
+### 詳解的部分: 
+```
+formating in easily reading html 
+\`\`\`
+內容
+\`\`\`
+```
 
 ## 題目標籤
 
 - 標籤和子標籤允許在多個軸上對問題進行分類。
 - 編輯 `index.json`，調整每個題目的次專科。
+- 可以用ChatGPT幫你 prompt如下去修改對應的題號，因為字會很多，所以每次卡住的時候，就跟他說`go on`就可以了：
+
+```
+create a json file looks like, complete the list from "001"~"160" with consecutive numbers, 
+e.g. 001~019 will be 心臟科, all the same 
+
+\`\`\`
+{
+    "001": {"0":"General","1":"心臟科"}, 
+    ...
+    "020": {"0":"General","1":"胸腔科"},
+    ...
+    "030": {"0":"General","1":"肝膽腸胃科"},
+    ...
+    "040": {"0":"General","1":"腎臟科"},
+    ...
+    "050": {"0":"General","1":"感染科"},
+    ...
+    "060": {"0":"General","1":"內分泌科"},
+    ...
+    "070": {"0":"General","1":"風濕免疫科"},
+    ....
+    "080": {"0":"General","1":"血液腫瘤科"},
+    ....
+    "090": {"0":"General","1":"神經科"},
+    ....
+    "100": {"0":"General","1":"神經科"}, 
+    ....
+    "150": {"0":"General","1":"精神科"},
+    ....
+    "152": {"0":"General","1":"皮膚科"},
+    ....
+    "156": {"0":"General","1":"其他科"},
+    ....
+    "160": {"0":"General","1":"其他科"},
+}
+\`\`\`
+```
+
+- 將產生好的結果貼到`index.json`裡
 

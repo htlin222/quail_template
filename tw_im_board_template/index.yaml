@@ -1,0 +1,47 @@
+- sub: "心臟科"
+  start: 001
+  end: 020
+
+- sub: "胸腔科"
+  start: 021
+  end: 040
+
+- sub: "肝膽腸胃科"
+  start: 041
+  end: 060
+
+- sub: "腎臟科"
+  start: 061
+  end: 070
+
+- sub: "感染科"
+  start: 071
+  end: 080
+
+- sub: "內分泌科"
+  start: 081
+  end: 090
+
+- sub: "風濕免疫科"
+  start: 091
+  end: 100
+
+- sub: "血液腫瘤科"
+  start: 101
+  end: 120
+
+- sub: "神經科"
+  start: 121
+  end: 130
+
+- sub: "精神科"
+  start: 131
+  end: 140
+
+- sub: "皮膚科"
+  start: 141
+  end: 150
+
+- sub: "其他科"
+  start: 151
+  end: 160

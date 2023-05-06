@@ -1,21 +1,17 @@
----
-title: "README"
-date: "2023-05-06"
----
-
 # 說明
 
+- 本地的考古題做題軟體推薦: Quail
 - 軟體首頁： [Quail - Question bank browser](https://thedabblingduck.github.io/quail/)
 
-下載連結
-[Release 0.1.14 · TheDabblingDuck/quail](https://github.com/TheDabblingDuck/quail/releases/tag/v0.1.14)
+- 下載連結 [Release 0.1.14 · TheDabblingDuck/quail](https://github.com/TheDabblingDuck/quail/releases/tag/v0.1.14)
 
 - Mac第一次打開會遇到「無法辨識開發者，你應該要把它丟到垃圾桶」，解決方法：
 	- [打開來自未識別開發者的 Mac App - Apple 支援 (台灣)](https://support.apple.com/zh-tw/guide/mac-help/mh40616/mac)
 
 ## 編輯題目
 
-- 下載整個repo，解壓縮後**複製** `tw_im_board_template` 這個資料夾，重新命名為 `內專1xx年`
+- 下載整個repo，按右上角的`<>Code🔽` -> `🤐 Download ZIP`
+- 解壓縮後**複製** `tw_im_board_template` 這個資料夾，重新命名為 `內專1xx年`
 - 題庫由 HTML 檔案組成，這些檔案可以在文字處理器中創建，推薦用[VSCode](https://code.visualstudio.com/download)。
 	- 選擇`檔案` -> `開啟資料夾` -> `內專1xx年`
 - 每個題目以“-q.html”結尾，詳解以“-s.html”結尾

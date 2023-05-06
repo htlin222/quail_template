@@ -20,5 +20,6 @@ with open('text.md', 'w') as f:
 ### Correct Answer: A
 
 詳解如下…
+
 '''
         f.write(text)

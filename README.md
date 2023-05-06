@@ -9,9 +9,10 @@
 
 - Mac第一次打開會遇到「無法辨識開發者，你應該要把它丟到垃圾桶」，解決方法：
 	- [打開來自未識別開發者的 Mac App - Apple 支援 (台灣)](https://support.apple.com/zh-tw/guide/mac-help/mh40616/mac)
+	- 如下圖，選擇「強制打開」就好
 
 
-- ![強制打開](https://i.imgur.com/BnTzIKu.png)
+![強制打開](https://i.imgur.com/BnTzIKu.png)
 
 
 ## 編輯題目
@@ -35,6 +36,9 @@
 	C. Parakeet
 	D. Magpie
 	```
+
+- 可以用chrome/safari/edge打開這個html檔，預覽一下編輯效果
+
 ## 題目標籤
 
 - 標籤和子標籤允許在多個軸上對問題進行分類。

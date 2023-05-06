@@ -1,0 +1,10 @@
+{
+  "參考": {
+    "file": "medical_hint.html",
+    "prefs": "width=400,height=800"
+    },
+  "計算機": {
+    "file": "calculator.html",
+    "prefs": "width=300,height=450"
+    }
+}

@@ -2,7 +2,7 @@
 
 # 說明
 
-- 本地的考古題做題軟體推薦: Quail
+- 本地的考古題做題軟體推薦: Quail (鵪鶉) 似台語發音`過喔`
 - 軟體首頁： [Quail - Question bank browser](https://thedabblingduck.github.io/quail/)
 
 - 下載連結 [Release 0.1.14 · TheDabblingDuck/quail](https://github.com/TheDabblingDuck/quail/releases/tag/v0.1.14)
@@ -17,6 +17,7 @@
 
 ## 編輯題目
 
+- [Quail 內專刷題軟體使用教學 v2 - YouTube](https://www.youtube.com/watch?v=DsW5tOg3_d4&ab_channel=%E6%9E%97%E5%8D%94%E9%9C%86)
 - 下載整個repo，按右上角的`<>Code🔽` -> `🤐 Download ZIP`
 - 解壓縮後**複製** `tw_im_board_template` 這個資料夾，重新命名為 `內專1xx年`
 - 題庫由 HTML 檔案組成，這些檔案可以在文字處理器中創建，推薦用[VSCode](https://code.visualstudio.com/download)。

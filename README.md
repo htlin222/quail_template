@@ -1,5 +1,7 @@
 # README
 
+> [📺影片介紹](https://youtu.be/FIP1UqfCgOc)
+
 - 本地的考古題做題軟體推薦: Quail (鵪鶉) 似台語發音`過喔`
 - 軟體首頁： [Quail - Question bank browser](https://thedabblingduck.github.io/quail/)
 

@@ -47,7 +47,6 @@ def split_by_h3(filename):
 
 def main():
     directory = '.'  # replace with the path to your directory if necessary
-
     for filename in os.listdir(directory):
         if filename.endswith('.md'):
             splite_the_main(filename)

@@ -10,6 +10,10 @@
 - Mac第一次打開會遇到「無法辨識開發者，你應該要把它丟到垃圾桶」，解決方法：
 	- [打開來自未識別開發者的 Mac App - Apple 支援 (台灣)](https://support.apple.com/zh-tw/guide/mac-help/mh40616/mac)
 
+
+- ![強制打開](https://i.imgur.com/BnTzIKu.png)
+
+
 ## 編輯題目
 
 - 下載整個repo，按右上角的`<>Code🔽` -> `🤐 Download ZIP`

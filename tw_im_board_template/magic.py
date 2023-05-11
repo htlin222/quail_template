@@ -94,9 +94,9 @@ def main():
             splite_the_main(filename)
     print("Generated All the HTML files")
 
-    for filename in os.listdir(directory):
-        if filename.endswith('.csv'):
-            open_csv_file(filename)
+    # for filename in os.listdir(directory):
+    #   if filename.endswith('.csv'):
+    #        open_csv_file(filename)
 
     print('Done')
 

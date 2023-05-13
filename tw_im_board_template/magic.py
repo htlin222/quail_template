@@ -5,12 +5,19 @@
 
 import markdown
 import re
-import csv
-import json
 import os
 
 json_file_path = 'index.json'
 tagnames_file_path = 'tagnames.json'
+cwd = os.getcwd()
+folder_name = os.path.basename(cwd)
+
+def delete_file(filename):
+    if os.path.exists(filename):
+        os.remove(filename)
+        print("File '{filename}' has been deleted.")
+    else:
+        print("File '{filename}' does not exist in the current directory.")
 
 def splite_the_main(main_file):
 
@@ -31,6 +38,20 @@ def splite_the_main(main_file):
         print(f"{filename} completed.")
 
 
+def add_line_breaks_to_images(file_path):
+    # Read the Markdown file
+    with open(file_path, "r") as file:
+        text = file.read()
+
+    pattern = r"!\[.*?\]\((.*?)\)"  # Regular expression pattern to match any pattern ending with .jpg
+    # Add line breaks before and after the pattern
+    result = re.sub(pattern, r"\n\g<0>\n", text)
+
+    # Write the modified text back to the file
+    with open(file_path, "w") as file:
+        file.write(result)
+
+
 def split_by_h3(filename):
 
     with open(filename, 'r') as f:
@@ -42,55 +63,59 @@ def split_by_h3(filename):
     # Convert each fragment to HTML and save to separate files
     for i, fragment in enumerate(fragments[1:], start=1):
         html = markdown.markdown(fragment, output_format='html')
-        with open(f'{filename_without_ext}-s.html', 'w') as f:
+        with open(f'{folder_name}{filename_without_ext}-s.html', 'w') as f:
             f.write(html)
 
-    with open(f'{filename_without_ext}-q.html', 'w') as f:
+    with open(f'{folder_name}{filename_without_ext}-q.html', 'w') as f:
         f.write(markdown.markdown(fragments[0], output_format='html'))
 
+def delete_heading1_lines(file_path):
+    # Read the text file
+    with open(file_path, "r") as file:
+        text = file.read()
 
-def open_csv_file(csv_file_path):
+    # Delete all heading 1 lines
+    result = re.sub(r'^#\s.*$', '', text, flags=re.MULTILINE)
 
-    # Open the CSV file and read its contents
-    with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
-        csv_reader = csv.reader(csvfile)
-        header = next(csv_reader)  # Get the header row
+    # Write the modified text back to the file
+    with open(file_path, "w") as file:
+        file.write(result)
 
-        # Store the original header in a dictionary
-        tags_dict = {}
-        for i in range(len(header)-1):
-            tags_dict[str(i)] = header[i+1]
 
-        # Create a new header with values "0" and "1"
-        new_header = ["0", "1"]
+def add_line_break_to_heading3(file_path):
+    # Read the text file
+    with open(file_path, "r") as file:
+        text = file.read()
 
-        # Convert each row to a dictionary
-        data_dict = {}
-        for row in csv_reader:
-            key = row[0].zfill(3)  # Pad the key with leading zeros
-            data_dict[key] = {new_header[i]: row[i+1] for i in range(len(new_header))}
+    # Add a line break after each heading 3
+    result = re.sub(r'^(### .*)$', r'\g<0>\n', text, flags=re.MULTILINE)
 
-    # Write the resulting dictionary as JSON
-    with open(json_file_path, 'w', encoding='utf-8') as jsonfile:
-        json.dump(data_dict, jsonfile, ensure_ascii=False, indent=4, separators=(',', ': '))
+    # Write the modified text back to the file
+    with open(file_path, "w") as file:
+        file.write(result)
+def add_line_to_top_of_markdown(file_path):
+    # Read the Markdown file
+    with open(file_path, "r") as file:
+        content = file.read()
 
-        # Add a newline character after each item in the JSON output
-        jsonfile.write('\n')
+    # Prepend the line to the existing content
+    updated_content = "# Hello\n" + content
 
-    # Write the original header as a separate JSON file
-    with open(tagnames_file_path, 'w', encoding='utf-8') as tagsfile:
-        tags_dict = {"tagnames": tags_dict}
-        json.dump(tags_dict, tagsfile, ensure_ascii=False, indent=4, separators=(',', ': '))
-
-        # Add a newline character after each item in the JSON output
-        tagsfile.write('\n')
-    print("Generated two JSON files")
-
+    # Write the updated content back to the file
+    with open(file_path, "w") as file:
+        file.write(updated_content)
 
 def main():
     directory = '.'  # replace with the path to your directory if necessary
+    delete_file("index.json")
+    delete_file("progress.json")
+    delete_file("choices.json")
     for filename in os.listdir(directory):
         if filename.endswith('.md'):
+            add_line_breaks_to_images(filename)
+            delete_heading1_lines(filename)
+            add_line_to_top_of_markdown(filename)
+            add_line_break_to_heading3(filename)
             splite_the_main(filename)
     print("Generated All the HTML files")
 

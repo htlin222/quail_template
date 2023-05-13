@@ -9,6 +9,8 @@ import os
 
 json_file_path = 'index.json'
 tagnames_file_path = 'tagnames.json'
+cwd = os.getcwd()
+folder_name = os.path.basename(cwd)
 
 
 def open_csv_file(csv_file_path):
@@ -24,13 +26,13 @@ def open_csv_file(csv_file_path):
             tags_dict[str(i)] = header[i+1]
 
         # Create a new header with values "0" and "1"
-        new_header = ["0", "1"]
+        new_header = ["0", "1", "2"]
 
         # Convert each row to a dictionary
         data_dict = {}
         for row in csv_reader:
             key = row[0].zfill(3)  # Pad the key with leading zeros
-            data_dict[key] = {new_header[i]: row[i+1] for i in range(len(new_header))}
+            data_dict[folder_name + key] = {new_header[i]: row[i+1] for i in range(len(new_header))}
 
     # Write the resulting dictionary as JSON
     with open(json_file_path, 'w', encoding='utf-8') as jsonfile:
@@ -47,9 +49,20 @@ def open_csv_file(csv_file_path):
         # Add a newline character after each item in the JSON output
         tagsfile.write('\n')
 
+def init_delete(file_path):
+
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"File {file_path} has been deleted.")
+    else:
+        print(f"File {file_path} does not exist in the current directory.")
+
 
 def main():
     directory = '.'  # replace with the path to your directory if necessary
+    init_delete(tagnames_file_path)
+    init_delete(json_file_path)
+
     for filename in os.listdir(directory):
         if filename.endswith('.csv'):
             open_csv_file(filename)

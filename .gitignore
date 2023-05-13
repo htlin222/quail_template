@@ -1,2 +1,5 @@
 .DS_Store
-*.md
+/**/[0-9]*/
+*.zip
+/**/test.md
+

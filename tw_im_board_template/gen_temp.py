@@ -24,3 +24,5 @@ with open('text.md', 'w') as f:
 
 '''
         f.write(text)
+
+print("done")

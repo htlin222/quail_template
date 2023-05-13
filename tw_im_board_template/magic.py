@@ -5,12 +5,15 @@
 
 import markdown
 import re
+import csv
+import json
 import os
 
 json_file_path = 'index.json'
 tagnames_file_path = 'tagnames.json'
 cwd = os.getcwd()
 folder_name = os.path.basename(cwd)
+
 
 def delete_file(filename):
     if os.path.exists(filename):
@@ -19,17 +22,20 @@ def delete_file(filename):
     else:
         print("File '{filename}' does not exist in the current directory.")
 
-def splite_the_main(main_file):
+
+def split_the_main(main_file):
 
     with open(main_file, 'r') as f:
         markdown_text = f.read()
 
     # Split the file contents into sections based on the second-level heading
     sections = re.split(r'\n##\s+', markdown_text)[1:]
+    main_file_name = os.path.splitext(main_file)[0]
 
     # Iterate over the sections and write each one to a separate file
     for i, section in enumerate(sections):
-        filename = f'{str(i+1).zfill(3)}.md'
+        # TODO: filename as markdown name
+        filename = f'{main_file_name}{str(i+1).zfill(3)}.md'
         # Generate a filename based on the section number
         with open(filename, 'w') as f:
             f.write('## ' + section.strip())  # Write the section to a file
@@ -37,6 +43,62 @@ def splite_the_main(main_file):
         os.remove(filename)
         print(f"{filename} completed.")
 
+
+
+def split_by_h3(filename):
+
+    with open(filename, 'r') as f:
+        markdown_text = f.read()
+
+    # Split markdown by heading 3
+    fragments = re.split(r'^### ', markdown_text, flags=re.MULTILINE)
+    filename_without_ext = os.path.splitext(filename)[0]
+    # Convert each fragment to HTML and save to separate files
+    # TODO: Don't use folder name, use markdown filename instaed
+    for i, fragment in enumerate(fragments[1:], start=1):
+        html = markdown.markdown(fragment, output_format='html')
+        with open(f'{filename_without_ext}-s.html', 'w') as f:
+            f.write(html)
+
+    with open(f'{filename_without_ext}-q.html', 'w') as f:
+        f.write(markdown.markdown(fragments[0], output_format='html'))
+
+def open_csv_file(csv_file_path):
+
+    # Open the CSV file and read its contents
+    with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
+        csv_reader = csv.reader(csvfile)
+        header = next(csv_reader)  # Get the header row
+
+        # Store the original header in a dictionary
+        tags_dict = {}
+        for i in range(len(header)-1):
+            tags_dict[str(i)] = header[i+1]
+
+        # Create a new header with values "0" and "1"
+        new_header = ["0", "1", "2"]
+
+        csv_file_name = os.path.splitext(csv_file_path)[0]
+        # Convert each row to a dictionary
+        data_dict = {}
+        for row in csv_reader:
+            key = row[0].zfill(3)  # Pad the key with leading zeros
+            data_dict[csv_file_name + key] = {new_header[i]: row[i+1] for i in range(len(new_header))}
+
+    # Write the resulting dictionary as JSON
+    with open(json_file_path, 'w', encoding='utf-8') as jsonfile:
+        json.dump(data_dict, jsonfile, ensure_ascii=False, indent=4, separators=(',', ': '))
+
+        # Add a newline character after each item in the JSON output
+        jsonfile.write('\n')
+
+    # Write the original header as a separate JSON file
+    with open(tagnames_file_path, 'w', encoding='utf-8') as tagsfile:
+        tags_dict = {"tagnames": tags_dict}
+        json.dump(tags_dict, tagsfile, ensure_ascii=False, indent=4, separators=(',', ': '))
+
+        # Add a newline character after each item in the JSON output
+        tagsfile.write('\n')
 
 def add_line_breaks_to_images(file_path):
     # Read the Markdown file
@@ -51,24 +113,6 @@ def add_line_breaks_to_images(file_path):
     with open(file_path, "w") as file:
         file.write(result)
 
-
-def split_by_h3(filename):
-
-    with open(filename, 'r') as f:
-        markdown_text = f.read()
-
-    # Split markdown by heading 3
-    fragments = re.split(r'^### ', markdown_text, flags=re.MULTILINE)
-    filename_without_ext = os.path.splitext(filename)[0]
-    # Convert each fragment to HTML and save to separate files
-    for i, fragment in enumerate(fragments[1:], start=1):
-        html = markdown.markdown(fragment, output_format='html')
-        with open(f'{folder_name}{filename_without_ext}-s.html', 'w') as f:
-            f.write(html)
-
-    with open(f'{folder_name}{filename_without_ext}-q.html', 'w') as f:
-        f.write(markdown.markdown(fragments[0], output_format='html'))
-
 def delete_heading1_lines(file_path):
     # Read the text file
     with open(file_path, "r") as file:
@@ -81,7 +125,6 @@ def delete_heading1_lines(file_path):
     with open(file_path, "w") as file:
         file.write(result)
 
-
 def add_line_break_to_heading3(file_path):
     # Read the text file
     with open(file_path, "r") as file:
@@ -93,6 +136,7 @@ def add_line_break_to_heading3(file_path):
     # Write the modified text back to the file
     with open(file_path, "w") as file:
         file.write(result)
+
 def add_line_to_top_of_markdown(file_path):
     # Read the Markdown file
     with open(file_path, "r") as file:
@@ -110,20 +154,21 @@ def main():
     delete_file("index.json")
     delete_file("progress.json")
     delete_file("choices.json")
+    delete_file("tagnames.json")
     for filename in os.listdir(directory):
         if filename.endswith('.md'):
             add_line_breaks_to_images(filename)
             delete_heading1_lines(filename)
             add_line_to_top_of_markdown(filename)
             add_line_break_to_heading3(filename)
-            splite_the_main(filename)
-    print("Generated All the HTML files")
+            split_the_main(filename)
+    print("\nGenerated All the HTML files")
 
-    # for filename in os.listdir(directory):
-    #   if filename.endswith('.csv'):
-    #        open_csv_file(filename)
-
-    print('Done')
+    for filename in os.listdir(directory):
+        if filename.endswith('.csv'):
+            open_csv_file(filename)
+    print("\nGenerated two JSON files")
+    print('\nDone')
 
 
 if __name__ == '__main__':

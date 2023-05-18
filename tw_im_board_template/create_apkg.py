@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 # title: create_apkg
 # date: "2023-05-18"
-
 import sys
 import os
 import re
 import subprocess
+import shutil
+import glob
+
 
 def replace_markdown(text):
     text = re.sub(r'^##\s', r'<div data-question markdown="block">\n\n## ', text, flags=re.MULTILINE)
@@ -33,6 +35,12 @@ if __name__ == '__main__':
             file.write(modified_text)
             print(f"Modified Markdown file has been saved to {input_path}")
 
+        # Copy images to input_for_anki directory
+        image_extensions = ['.jpg', '.png', '.jpeg']
+        image_files = [f for ext in image_extensions for f in glob.glob(f"*{ext}")]
+        for image_file in image_files:
+            shutil.copy(image_file, input_dir)
+
         # Create output_for_anki directory if it doesn't exist
         os.makedirs(output_dir, exist_ok=True)
 
@@ -46,5 +54,9 @@ if __name__ == '__main__':
         # Run mdankideck subprocess
         subprocess.run(['mdankideck', input_dir, output_dir])
         print(f"mdankideck process completed. Output files are saved in {output_dir}")
+
+        # Delete input_for_anki folder
+        shutil.rmtree(input_dir)
+        print(f"input_for_anki folder has been deleted.")
     else:
         print("Please provide a Markdown file as a command-line argument.")

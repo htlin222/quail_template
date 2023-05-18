@@ -19,7 +19,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         file_path = sys.argv[1]
         file_dir, file_name = os.path.split(file_path)
-        output_dir = "output_for_anki"
+        output_dir = "anki_deck"
         input_dir = "input_for_anki"
         output_path = os.path.join(output_dir, file_name)
         input_path = os.path.join(input_dir, file_name)

@@ -8,6 +8,8 @@ import re
 import csv
 import json
 import os
+import shutil
+from datetime import datetime
 
 json_file_path = 'index.json'
 tagnames_file_path = 'tagnames.json'
@@ -18,9 +20,9 @@ folder_name = os.path.basename(cwd)
 def delete_file(filename):
     if os.path.exists(filename):
         os.remove(filename)
-        print("File '{filename}' has been deleted.")
+        print(f"File '{filename}' has been deleted. ❌ ")
     else:
-        print("File '{filename}' does not exist in the current directory.")
+        print(f"File '{filename}' does not exist 🤷 in the current directory.")
 
 
 def split_the_main(main_file):
@@ -44,6 +46,26 @@ def split_the_main(main_file):
         print(f"{filename} completed.")
 
 
+def copy_and_rename_file(source_path, destination_dir):
+    # Create the destination directory if it doesn't exist
+    os.makedirs(destination_dir, exist_ok=True)
+
+    # Extract the filename and extension from the source path
+    filename, extension = os.path.splitext(source_path)
+
+    # Get the current timestamp
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M")
+
+    # Create the new filename
+    new_filename = f"{filename}_ver_{timestamp}{extension}"
+
+    # Construct the destination path
+    destination_path = os.path.join(destination_dir, new_filename)
+
+    # Copy the file to the destination directory with the new name
+    shutil.copy2(source_path, destination_path)
+    print("Backing up the original file 🎒 ")
+
 
 def split_by_h3(filename):
 
@@ -62,6 +84,8 @@ def split_by_h3(filename):
 
     with open(f'{filename_without_ext}-q.html', 'w') as f:
         f.write(markdown.markdown(fragments[0], output_format='html'))
+
+
 
 def open_csv_file(csv_file_path):
 
@@ -100,18 +124,21 @@ def open_csv_file(csv_file_path):
         # Add a newline character after each item in the JSON output
         tagsfile.write('\n')
 
+
 def add_line_breaks_to_images(file_path):
     # Read the Markdown file
     with open(file_path, "r") as file:
         text = file.read()
 
-    pattern = r"!\[.*?\]\((.*?)\)"  # Regular expression pattern to match any pattern ending with .jpg
+    pattern = r"!\[.*?\]\((.*?)\)"
+    # Regular expression pattern to match any pattern ending with .jpg
     # Add line breaks before and after the pattern
     result = re.sub(pattern, r"\n\g<0>\n", text)
 
     # Write the modified text back to the file
     with open(file_path, "w") as file:
         file.write(result)
+
 
 def delete_heading1_lines(file_path):
     # Read the text file
@@ -124,6 +151,7 @@ def delete_heading1_lines(file_path):
     # Write the modified text back to the file
     with open(file_path, "w") as file:
         file.write(result)
+
 
 def add_line_break_to_heading3(file_path):
     # Read the text file
@@ -139,6 +167,7 @@ def add_line_break_to_heading3(file_path):
 
 def add_line_to_top_of_markdown(file_path):
     # Read the Markdown file
+
     with open(file_path, "r") as file:
         content = file.read()
 
@@ -149,26 +178,30 @@ def add_line_to_top_of_markdown(file_path):
     with open(file_path, "w") as file:
         file.write(updated_content)
 
+
 def main():
+    print("Start the process 👟 ⏳ ")
     directory = '.'  # replace with the path to your directory if necessary
+    destination_directory = './original'
     delete_file("index.json")
     delete_file("progress.json")
     delete_file("choices.json")
     delete_file("tagnames.json")
     for filename in os.listdir(directory):
         if filename.endswith('.md'):
+            copy_and_rename_file(filename, destination_directory)
             add_line_breaks_to_images(filename)
             delete_heading1_lines(filename)
             add_line_to_top_of_markdown(filename)
             add_line_break_to_heading3(filename)
             split_the_main(filename)
-    print("\nGenerated All the HTML files")
+    print("\nGenerated All the HTML files 😎 🆒 ")
 
     for filename in os.listdir(directory):
         if filename.endswith('.csv'):
             open_csv_file(filename)
-    print("\nGenerated two JSON files")
-    print('\nDone')
+    print("\nGenerated two JSON files 📋 📋")
+    print('\nDone ✨')
 
 
 if __name__ == '__main__':

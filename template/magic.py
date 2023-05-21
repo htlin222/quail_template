@@ -15,14 +15,18 @@ json_file_path = 'index.json'
 tagnames_file_path = 'tagnames.json'
 cwd = os.getcwd()
 folder_name = os.path.basename(cwd)
-
+# ANSI escape sequences for color
+RED = '\033[91m'
+GREEN = '\033[92m'
+BLUE = '\033[94m'
+RESET = '\033[0m'
 
 def delete_file(filename):
     if os.path.exists(filename):
         os.remove(filename)
-        print(f"File '{filename}' has been deleted. ❌ ")
+        print(f"Old file {GREEN}'{filename}'{RESET} has been deleted. ❌ ")
     else:
-        print(f"File '{filename}' does not exist 🤷 in the current directory.")
+        print(f"File {GREEN}'{filename}'{RESET} does not exist 🤷 in the current directory.")
 
 
 def split_the_main(main_file):
@@ -35,15 +39,19 @@ def split_the_main(main_file):
     main_file_name = os.path.splitext(main_file)[0]
 
     # Iterate over the sections and write each one to a separate file
+    completed_files = []  # List to store the completed filenames
     for i, section in enumerate(sections):
         # TODO: filename as markdown name
-        filename = f'{main_file_name}{str(i+1).zfill(3)}.md'
+        filename = f'{folder_name}{str(i+1).zfill(3)}.md'
         # Generate a filename based on the section number
         with open(filename, 'w') as f:
             f.write('## ' + section.strip())  # Write the section to a file
         split_by_h3(filename)
         os.remove(filename)
-        print(f"{filename} completed.")
+        completed_files.append(filename)
+
+    # Print the total number of completed files
+    print(f"👉 {GREEN}{len(completed_files)}{RESET} pairs of Q and S generated")
 
 
 def copy_and_rename_file(source_path, destination_dir):
@@ -64,7 +72,7 @@ def copy_and_rename_file(source_path, destination_dir):
 
     # Copy the file to the destination directory with the new name
     shutil.copy2(source_path, destination_path)
-    print("Backing up the original file 🎒 ")
+    print("...Backing up the original file 🎒 ...\nReady for the magic 🧚 ")
 
 
 def split_by_h3(filename):
@@ -107,7 +115,7 @@ def open_csv_file(csv_file_path):
         data_dict = {}
         for row in csv_reader:
             key = row[0].zfill(3)  # Pad the key with leading zeros
-            data_dict[csv_file_name + key] = {new_header[i]: row[i+1] for i in range(len(new_header))}
+            data_dict[folder_name + key] = {new_header[i]: row[i+1] for i in range(len(new_header))}
 
     # Write the resulting dictionary as JSON
     with open(json_file_path, 'w', encoding='utf-8') as jsonfile:
@@ -115,6 +123,9 @@ def open_csv_file(csv_file_path):
 
         # Add a newline character after each item in the JSON output
         jsonfile.write('\n')
+        print(f"Preview of the {json_file_path}👇:\n")
+        print_first_five_lines(json_file_path)
+        print("🤙🤙🤙🤙🤙🤙\n")
 
     # Write the original header as a separate JSON file
     with open(tagnames_file_path, 'w', encoding='utf-8') as tagsfile:
@@ -171,16 +182,25 @@ def add_line_to_top_of_markdown(file_path):
     with open(file_path, "r") as file:
         content = file.read()
 
+    filename = os.path.splitext(os.path.basename(file_path))[0]
     # Prepend the line to the existing content
-    updated_content = "# Hello\n" + content
+    updated_content = f"# 內專考古題::{filename}\n{content}"
 
     # Write the updated content back to the file
     with open(file_path, "w") as file:
         file.write(updated_content)
 
 
+def print_first_five_lines(file_path):
+    with open(file_path, "r") as file:
+        for i, line in enumerate(file):
+            print(line)
+            if i == 4:
+                break
+
+
 def main():
-    print("Start the process 👟 ⏳ ")
+    print("Have you downloaded the images locally? \nStart the process 👟 ⏳ ")
     directory = '.'  # replace with the path to your directory if necessary
     destination_directory = './original'
     delete_file("index.json")
@@ -195,14 +215,17 @@ def main():
             add_line_to_top_of_markdown(filename)
             add_line_break_to_heading3(filename)
             split_the_main(filename)
-    print("\nGenerated All the HTML files 😎 🆒 ")
+            print("Generated All the HTML files 😎 🆒 ")
 
+    csv_found = False
     for filename in os.listdir(directory):
         if filename.endswith('.csv'):
             open_csv_file(filename)
-    print("\nGenerated two JSON files 📋 📋")
-    print('\nDone ✨')
-
+            csv_found = True
+            print("Generated two JSON files 📋 📋")
+            print(f'{GREEN}Done ✨')
+    if not csv_found:
+        print("{RED}FATAL ERROR ⚠️  : no csv file, can't generate index.json")
 
 if __name__ == '__main__':
     main()

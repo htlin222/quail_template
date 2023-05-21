@@ -1,5 +1,5 @@
 .DS_Store
 /**/[0-9]*/
+/**/*.apkg
 *.zip
-/**/test.md
-
+*.csv

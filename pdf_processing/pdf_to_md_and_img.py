@@ -6,12 +6,27 @@
 #Import required dependencies
 import fitz
 import os
+import pdfplumber
 from PIL import Image
 
+directory = '.'
 #Get list of PDF files in current directory
 pdf_files = [f for f in os.listdir('.') if f.endswith('.pdf')]
 
-#Loop over PDF files
+# All PDF to markdown
+for filename in os.listdir(directory):
+    if filename.endswith('.pdf'):
+        filepath = os.path.join(directory, filename)
+        with pdfplumber.open(filepath) as pdf:
+            text = ''
+            for page in pdf.pages:
+                text += page.extract_text()
+                print(text)
+        # Save the extracted text as a markdown file
+        md_filename = os.path.splitext(filename)[0] + '_未處理.md'
+        with open(md_filename, 'w') as f:
+            f.write(text)
+#Loop over PDF files to extract image
 for file_path in pdf_files:
     #Open PDF file
     pdf_file = fitz.open(file_path)

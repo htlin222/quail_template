@@ -3,3 +3,4 @@
 /**/*.apkg
 *.zip
 *.csv
+.python-version

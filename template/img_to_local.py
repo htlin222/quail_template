@@ -9,6 +9,12 @@ import re
 # Define a regular expression pattern to match image links in Markdown
 pattern = r'\!\[(.*)\]\((http.*?)\)'
 
+# ANSI escape sequences for color
+RED = '\033[91m'
+GREEN = '\033[92m'
+BLUE = '\033[94m'
+RESET = '\033[0m'
+
 # Define a function to download an image and save it to disk
 def download_image(url, file_path):
     response = requests.get(url, stream=True)
@@ -42,9 +48,9 @@ for md_file in os.listdir():
             # Download the image if it doesn't already exist in the local directory
             if not os.path.exists(image_file_path):
                 if download_image(image_url, image_file_path):
-                    print(f'Downloaded image: {image_url} -> {image_file_path}')
+                    print(f'{GREEN}Downloaded image{RESET}: {image_url} -> {image_file_path}')
                 else:
-                    print(f'Error downloading image: {image_url}')
+                    print(f'{RED}權限沒開無法下載{RESET}: {image_url}')
 
             # Replace the remote image link with a local image path in the Markdown content
             local_image_path = os.path.relpath(image_file_path, base_dir)

@@ -21,14 +21,15 @@ GREEN = '\033[92m'
 BLUE = '\033[94m'
 RESET = '\033[0m'
 
+# delete file function {{{
 def delete_file(filename):
     if os.path.exists(filename):
         os.remove(filename)
         print(f"Old file {GREEN}'{filename}'{RESET} has been deleted. ❌ ")
     else:
         print(f"File {GREEN}'{filename}'{RESET} does not exist 🤷 in the current directory.")
-
-
+# }}}
+# split the main file by the heading number 2 {{{
 def split_the_main(main_file):
 
     with open(main_file, 'r') as f:
@@ -52,8 +53,8 @@ def split_the_main(main_file):
 
     # Print the total number of completed files
     print(f"👉 {GREEN}{len(completed_files)}{RESET} pairs of Q and S generated")
-
-
+# }}}
+# copy the original file and move it to the backup folder {{{
 def copy_and_rename_file(source_path, destination_dir):
     # Create the destination directory if it doesn't exist
     os.makedirs(destination_dir, exist_ok=True)
@@ -73,8 +74,8 @@ def copy_and_rename_file(source_path, destination_dir):
     # Copy the file to the destination directory with the new name
     shutil.copy2(source_path, destination_path)
     print("...Backing up the original file 🎒 ...\nReady for the magic 🧚 ")
-
-
+# }}}
+# for each pair of Question and solution, split by h3 {{{
 def split_by_h3(filename):
 
     with open(filename, 'r') as f:
@@ -92,9 +93,8 @@ def split_by_h3(filename):
 
     with open(f'{filename_without_ext}-q.html', 'w') as f:
         f.write(markdown.markdown(fragments[0], output_format='html'))
-
-
-
+# }}}
+# process the csv file, to generate index.json {{{
 def open_csv_file(csv_file_path):
 
     # Open the CSV file and read its contents
@@ -134,8 +134,8 @@ def open_csv_file(csv_file_path):
 
         # Add a newline character after each item in the JSON output
         tagsfile.write('\n')
-
-
+# }}}
+# add line breaks to images to avoid text and image in the same line {{{
 def add_line_breaks_to_images(file_path):
     # Read the Markdown file
     with open(file_path, "r") as file:
@@ -149,7 +149,7 @@ def add_line_breaks_to_images(file_path):
     # Write the modified text back to the file
     with open(file_path, "w") as file:
         file.write(result)
-
+# }}}
 
 def delete_heading1_lines(file_path):
     # Read the text file
@@ -162,7 +162,6 @@ def delete_heading1_lines(file_path):
     # Write the modified text back to the file
     with open(file_path, "w") as file:
         file.write(result)
-
 
 def add_line_break_to_heading3(file_path):
     # Read the text file
@@ -225,7 +224,7 @@ def main():
             print("Generated two JSON files 📋 📋")
             print(f'{GREEN}Done ✨')
     if not csv_found:
-        print("{RED}FATAL ERROR ⚠️  : no csv file, can't generate index.json")
+        print(f"{RED}FATAL ERROR ⚠️  : no csv file, can't generate index.json")
 
 if __name__ == '__main__':
     main()

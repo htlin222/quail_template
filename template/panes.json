@@ -1,10 +1,14 @@
 {
-  "參考": {
-    "file": "panes_medical_hint.html",
-    "prefs": "width=400,height=800"
-    },
-  "計算機": {
-    "file": "panes_calculator.html",
-    "prefs": "width=300,height=450"
-    }
+	"貪吃蛇": {
+		"file": "panes_snake.html",
+		"prefs": "width=500,height=500"
+	},
+	"計算機": {
+		"file": "panes_calculator.html",
+		"prefs": "width=300,height=450"
+	},
+	"考古題官網": {
+		"file": "exammenu.html",
+		"prefs": "width=500,height=800"
+	}
 }

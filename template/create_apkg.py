@@ -25,7 +25,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         file_path = sys.argv[1]
         file_dir, file_name = os.path.split(file_path)
-        output_dir = "anki_deck"
+        output_dir = "../anki_decks"
         input_dir = "input_for_anki"
         output_path = os.path.join(output_dir, file_name)
         input_path = os.path.join(input_dir, file_name)
@@ -43,7 +43,9 @@ if __name__ == "__main__":
 
         # Copy images to input_for_anki directory
         image_extensions = [".jpg", ".png", ".jpeg"]
-        image_files = [f for ext in image_extensions for f in glob.glob(f"*{ext}")]
+        image_files = [
+            f for ext in image_extensions for f in glob.glob(f"*{ext}")
+        ]
         for image_file in image_files:
             shutil.copy(image_file, input_dir)
 
@@ -54,12 +56,16 @@ if __name__ == "__main__":
         try:
             subprocess.run(["mdankideck", "--version"], check=True)
         except FileNotFoundError:
-            print("mdankideck not found. Installing markdown-anki-decks package...")
+            print(
+                "mdankideck not found. Installing markdown-anki-decks package..."
+            )
             subprocess.run(["pip", "install", "markdown-anki-decks"])
 
         # Run mdankideck subprocess
         subprocess.run(["mdankideck", input_dir, output_dir, "--cloze"])
-        print(f"mdankideck process completed. Output files are saved in {output_dir}")
+        print(
+            f"mdankideck process completed. Output files are saved in {output_dir}"
+        )
 
         # Delete input_for_anki folder
         shutil.rmtree(input_dir)

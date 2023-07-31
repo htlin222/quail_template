@@ -3,9 +3,9 @@
 # date created: "2023-06-22"
 
 
-source_folder="$HOME/Documents/01_內專"
+source_folder="$HOME/quail_template"
 
-destination_folder="$HOME/Documents/01_內專/export"
+destination_folder="$HOME/quail_template/export/"
 
 # Iterate through each subdirectory in the source folder
 for subdirectory in "$source_folder"/*/; do
@@ -23,5 +23,3 @@ for subdirectory in "$source_folder"/*/; do
     fi
 done
 exit 0
-
-

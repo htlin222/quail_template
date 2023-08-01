@@ -1,6 +1,7 @@
 .DS_Store
 /**/[0-9]*/
 /**/*.apkg
+/library/**
 *.zip
 *.csv
 .python-version

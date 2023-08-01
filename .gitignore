@@ -1,7 +1,11 @@
 .DS_Store
 /**/[0-9]*/
 /**/*.apkg
-/library/**
-*.zip
-*.csv
+/**/*.zip
+library/
+imboard/
+export/
+my_vault/
+test/
+notes/
 .python-version

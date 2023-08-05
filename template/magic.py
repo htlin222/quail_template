@@ -224,7 +224,7 @@ def main():
     directory = "."  # replace with the path to your directory PRN
     destination_directory = "./original"
     delete_file("index.json")
-    delete_file("progress.json")
+    # delete_file("progress.json")
     delete_file("choices.json")
     delete_file("tagnames.json")
     for filename in os.listdir(directory):

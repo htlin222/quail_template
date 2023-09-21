@@ -30,7 +30,7 @@
 
 ## 次專科考古資料庫
 
-- 每題有兩個屬性，一是次專、二是考古題否
+- 每題有三個屬性，一是次專、二是考古題否、三是年份
 
 ![編目](https://i.imgur.com/YqvyAx9.png)
 
@@ -41,28 +41,33 @@
 3. 肝膽腸胃科
 4. 腎臟科
 5. 感染科
-6. 內分泌科
-7. 風濕免疫科
-8. 血液腫瘤科
-9. 神經科
-10. 精神科
-11. 皮膚科
-12. 其他科
+6. 考古題
+7. 內分泌科
+8. 風濕免疫科
+9. 血液腫瘤科
+10. 神經科
+11. 精神科
+12. 皮膚科
 
-- 請到以下連結來編輯[GoogleSheet](https://docs.google.com/spreadsheets/d/1kSy9zXfbGspHeYZB6HMmpBtcBM2TX8aTkpm5h9_D29U/edit?usp=sharing)
-- 將這年的資料以`csv`的格式下載，並命名為`內專1xx年.csv`
+- 這個列表的範例[GoogleSheet](https://docs.google.com/spreadsheets/d/18ger0mucsSThUfUGwvPBaB106OMgAkDidY1fyW_h-ug/edit?usp=sharing)
+- 複製一份，將這年的資料以`csv`的格式下載，並命名為`內專1xx年.csv`
 
-## 以下是魔法 🧚🪄 的部分
+## 魔法 🧚🪄
 
 - 下載整個 repo，按右上角的`<>Code🔽` -> `🤐 Download ZIP`
-- 解壓縮後**複製** `tw_im_board_template` 這個資料夾，重新命名為 `內專1xx年`
+- 解壓縮後**複製** `template` 這個資料夾，重新命名為 `內專1xx年`
 - 將寫好的`內專1xx年.md`檔案放進這個資料夾
 - 將編輯好的`內專1xx年.csv`的`csv`檔案放進這個資料夾
-- 在這個資料夾裡執行以下兩個程式
+- 在這個資料夾裡執行:
 
-```
-python magic.py
-python csv_to_json.py
+```sh
+# 第一次執行
+make
+# 單純重新生成題庫，不再重下載圖片
+make again
+# 產生範本
+make new
 ```
 
-- 所有的題目對都生成完了
+- 所有的題目對都生成完
+- 最後再用quail開啟這個資料夾就可以

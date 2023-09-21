@@ -14,7 +14,10 @@ print(f"In {folder_name}, \ncreate {folder_name}.md and {folder_name}.csv")
 def get_valid_number():
     while True:
         try:
-            number = int(input("Please enter a number less than 1000: "))
+            number = int(
+                input(
+                    "How many question do you want? Please enter a number less than 1000: "
+                ))
             if number >= 1000:
                 print("Error: Number must be less than 1000.")
             else:

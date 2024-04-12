@@ -23,7 +23,7 @@
 
 ![Result](https://i.imgur.com/cQtuFIi.png)
 
-- 推薦使用 HackMD 來編輯，想貼上圖片的話，只要 ctrl/cmd + C 複製圖片，用截圖的方式，最後 ctrl/cmd + V 貼上，就會自動幫忙上傳圖片到圖床，可以參考
+- 推薦使用 HackMD 來編輯，想貼上圖片的話，只要 ctrl/cmd + C 複製圖片，用截圖的方式，最後 ctrl/cmd + V 貼上，就會自動幫忙上傳圖片到圖床，另外，這個hackmd文件有**一開始就要設定成公開權限**，這樣他的圖片才可以載得下來，不然會顯示錯誤，可以參考
   - [160 題的範例](https://hackmd.io/@htlin222/template/edit)
   - [200 題的範例](https://hackmd.io/@htlin222/template200x/edit)
 - 最後下載成 markdown 檔，命名為`內專1xx年.md`
